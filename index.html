@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>IOT</title>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="toggleBox">
+    <h1>SMART SWITCH !</h1>
+    <div class="toggle">
+      <input id="input001" type="checkbox"/><button onclick="statebtn()">ON</button>
+      <p id="message001"></p>
+      <!-- <label for="" class="onbtn">On</label> -->
+      <!-- <label for="" class="ofbtn">Off</label> -->
+    </div>
+  </div>
+  <script>
+     const ws = new WebSocket ("ws://localhost:8082");
+     ws.addEventListener("open", () => {
+          console.log ( "We are Connected!");
+
+          // ws.send( "From Client!!");    
+      // });
+      ws.addEventListener ("message" ,e => {
+          console.log(JSON.parse(e.data));
+      });
+
+      })
+    let click=false
+    function statebtn() {
+      // let sts = document.getElementById("input001").Value;
+      if(!click) {
+        // case "on" :
+        document.getElementById("message001").innerHTML="on";
+          console.log("recievd");
+          ws.send(JSON.stringify({
+  "state": {
+    "reported": {
+      "led": "0"
+    }
+  }
+}));
+
+    }
+      else {
+
+      }
+    };
+      
+
+    // }
+      // const ws = new WebSocket ("ws://localhost:8082");
+
+      // ws.addEventListener("open", () => {
+      //     console.log ( "We are Connected!");
+
+      //     // ws.send( "From Client!!"); 
+
+      //     ws.send(JSON.stringify({
+      //             x:98,
+      //             y:37
+      //     }));
+         
+      // });
+
+      // ws.addEventListener ("message" ,e => {
+      //     console.log(JSON.parse(e.data));
+      // });
+  </script>
+</body>
+</html>
